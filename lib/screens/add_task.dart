@@ -14,7 +14,7 @@ class AddTask extends StatelessWidget {
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        padding: const EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.only(left: 18, right: 18),
         decoration: const BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover, image: AssetImage("assets/background.jpg"))),
