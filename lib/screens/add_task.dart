@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_management_goflutter/utils/app_colors.dart';
+import 'package:task_management_goflutter/widgets/button_widget.dart';
 import 'package:task_management_goflutter/widgets/textfield_widget.dart';
 
 class AddTask extends StatelessWidget {
@@ -17,7 +18,8 @@ class AddTask extends StatelessWidget {
         padding: const EdgeInsets.only(left: 18, right: 18),
         decoration: const BoxDecoration(
             image: DecorationImage(
-                fit: BoxFit.cover, image: AssetImage("assets/background.jpg"))),
+                fit: BoxFit.cover,
+                image: AssetImage("assets/images/background.jpg"))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,7 +42,7 @@ class AddTask extends StatelessWidget {
                 TextFieldWidget(
                     textController: nameController, hintText: "Task name"),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextFieldWidget(
                   textController: detailController,
@@ -48,10 +50,17 @@ class AddTask extends StatelessWidget {
                   borderRadius: 15,
                   maxLines: 3,
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const ButtonWidget(
+                    bgcolor: AppColors.mainColor,
+                    text: "Add",
+                    textColor: AppColors.textholder)
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 6,
+              height: MediaQuery.of(context).size.height / 20,
             )
           ],
         ),
