@@ -1,11 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:task_management_goflutter/utils/app_colors.dart';
 
+import '../widgets/task_widget.dart';
+
 class AllTask extends StatelessWidget {
   const AllTask({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List myData = [
+      "Try Harder",
+      "Try Smarter",
+    ];
+    final leftEditIcon = Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      color: const Color(0xFF2e3253).withOpacity(0.5),
+      alignment: Alignment.centerLeft,
+      child: const Icon(
+        color: Colors.white,
+        Icons.edit,
+      ),
+    );
+    final rightDeleteIcon = Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      color: const Color.fromARGB(255, 255, 0, 0),
+      alignment: Alignment.centerRight,
+      child: const Icon(
+        color: Colors.white,
+        Icons.delete,
+      ),
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(children: [
@@ -62,7 +86,29 @@ class AllTask extends StatelessWidget {
               )
             ],
           ),
-        )
+        ),
+        Flexible(
+          child: ListView.builder(
+              itemCount: myData.length,
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  background: leftEditIcon,
+                  secondaryBackground: rightDeleteIcon,
+                  onDismissed: (DismissDirection direction) {},
+                  confirmDismiss: (DismissDirection direction) async {
+                    return false;
+                  },
+                  key: ObjectKey(index),
+                  child: Container(
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 10),
+                      child: TaskWidget(
+                        text: myData[index],
+                        color: Colors.blueGrey,
+                      )),
+                );
+              }),
+        ),
       ]),
     );
   }
