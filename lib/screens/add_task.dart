@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:task_management_goflutter/utils/app_colors.dart';
-import 'package:task_management_goflutter/widgets/button_widget.dart';
-import 'package:task_management_goflutter/widgets/textfield_widget.dart';
+import 'package:task_management_goflutter/widgets/button_view.dart';
+import 'package:task_management_goflutter/widgets/textfield_view.dart';
+
+import '/constants/app_colors.dart';
+import '../utils/screen_size.dart';
 
 class AddTask extends StatelessWidget {
   const AddTask({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize.init(context);
     TextEditingController detailController = TextEditingController();
     TextEditingController nameController = TextEditingController();
 
@@ -60,7 +63,7 @@ class AddTask extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 20,
+              height: ScreenSize.screenHeight! / 20,
             )
           ],
         ),

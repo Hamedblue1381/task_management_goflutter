@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:task_management_goflutter/utils/app_colors.dart';
-import 'package:task_management_goflutter/widgets/button_widget.dart';
+import 'package:task_management_goflutter/widgets/button_view.dart';
+
+import '../../constants/app_colors.dart';
+import '../utils/screen_size.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    ScreenSize.init(context);
     return Scaffold(
       body: Container(
         width: double.maxFinite,
@@ -41,14 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ))
                 ])),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 3,
+              height: ScreenSize.screenHeight! / 3,
             ),
             const ButtonWidget(
                 bgcolor: AppColors.mainColor,
                 text: "Add Task",
                 textColor: Colors.white),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 70,
+              height: ScreenSize.screenHeight! / 70,
             ),
             const ButtonWidget(
                 bgcolor: AppColors.textholder,

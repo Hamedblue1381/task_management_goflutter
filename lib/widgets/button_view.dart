@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/screen_size.dart';
+
 class ButtonWidget extends StatelessWidget {
   final Color bgcolor;
   final String text;
@@ -12,9 +14,10 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize.init(context);
     return Container(
       width: double.maxFinite,
-      height: MediaQuery.of(context).size.height / 14,
+      height: ScreenSize.screenHeight! / 14,
       decoration: BoxDecoration(
           color: bgcolor, borderRadius: BorderRadius.circular(40)),
       child: Center(

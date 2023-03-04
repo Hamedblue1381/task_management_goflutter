@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/screen_size.dart';
+
 class TaskWidget extends StatelessWidget {
   final String text;
   final Color color;
@@ -7,9 +9,10 @@ class TaskWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize.init(context);
     return Container(
       width: double.maxFinite,
-      height: MediaQuery.of(context).size.height / 14,
+      height: ScreenSize.screenHeight! / 14,
       decoration: BoxDecoration(
           color: const Color(0xFFedf0f8),
           borderRadius: BorderRadius.circular(10)),

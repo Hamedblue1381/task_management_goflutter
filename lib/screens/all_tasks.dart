@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:task_management_goflutter/utils/app_colors.dart';
+import 'package:task_management_goflutter/utils/screen_size.dart';
 
-import '../widgets/task_widget.dart';
+import '../../constants/app_colors.dart';
+import '../widgets/task_view.dart';
 
 class AllTask extends StatelessWidget {
   const AllTask({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize.init(context);
+
     List myData = [
       "Try Harder",
       "Try Smarter",
     ];
     final leftEditIcon = Container(
       margin: const EdgeInsets.only(bottom: 10),
-      color: const Color(0xFF2e3253).withOpacity(0.5),
+      color: AppColors.editGrey,
       alignment: Alignment.centerLeft,
       child: const Icon(
         color: Colors.white,
@@ -23,7 +26,7 @@ class AllTask extends StatelessWidget {
     );
     final rightDeleteIcon = Container(
       margin: const EdgeInsets.only(bottom: 10),
-      color: const Color.fromARGB(255, 255, 0, 0),
+      color: AppColors.deleteRed,
       alignment: Alignment.centerRight,
       child: const Icon(
         color: Colors.white,
@@ -36,18 +39,21 @@ class AllTask extends StatelessWidget {
         Container(
           alignment: Alignment.topLeft,
           width: double.maxFinite,
-          height: MediaQuery.of(context).size.height / 3.2,
+          height: ScreenSize.screenHeight! / 3.2,
           padding: const EdgeInsets.only(left: 10, top: 20),
           decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/images/bg3.jpg"))),
+                  image: AssetImage("assets/images/bg5.jpg"))),
           child: IconButton(
               onPressed: (() {}),
               icon: const Icon(
                 Icons.arrow_back,
-                color: Colors.red,
+                color: AppColors.secondaryColor,
               )),
+        ),
+        const SizedBox(
+          height: 10,
         ),
         Container(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -104,7 +110,7 @@ class AllTask extends StatelessWidget {
                           left: 20, right: 20, bottom: 10),
                       child: TaskWidget(
                         text: myData[index],
-                        color: Colors.blueGrey,
+                        color: AppColors.textGrey,
                       )),
                 );
               }),
