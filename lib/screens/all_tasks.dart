@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:task_management_goflutter/utils/screen_size.dart';
+import 'package:task_management_goflutter/widgets/button_view.dart';
 
 import '../../constants/app_colors.dart';
 import '../widgets/task_view.dart';
@@ -40,14 +42,17 @@ class AllTask extends StatelessWidget {
           alignment: Alignment.topLeft,
           width: double.maxFinite,
           height: ScreenSize.screenHeight! / 3.2,
-          padding: const EdgeInsets.only(left: 10, top: 20),
+          padding: const EdgeInsets.only(top: 20),
           decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage("assets/images/bg5.jpg"))),
           child: IconButton(
-              onPressed: (() {}),
-              icon: const Icon(
+              onPressed: (() {
+                Get.back();
+              }),
+              // ignore: prefer_const_constructors
+              icon: Icon(
                 Icons.arrow_back,
                 color: AppColors.secondaryColor,
               )),
@@ -58,13 +63,14 @@ class AllTask extends StatelessWidget {
         Container(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Icon(
                 Icons.home,
                 color: AppColors.secondaryColor,
               ),
               const SizedBox(
-                width: 20,
+                width: 8,
               ),
               Container(
                 width: 25,
@@ -84,7 +90,7 @@ class AllTask extends StatelessWidget {
                 color: AppColors.secondaryColor,
               ),
               const SizedBox(
-                width: 10,
+                width: 8,
               ),
               const Text(
                 "2",
@@ -92,6 +98,9 @@ class AllTask extends StatelessWidget {
               )
             ],
           ),
+        ),
+        const SizedBox(
+          height: 10,
         ),
         Flexible(
           child: ListView.builder(
@@ -102,7 +111,48 @@ class AllTask extends StatelessWidget {
                   secondaryBackground: rightDeleteIcon,
                   onDismissed: (DismissDirection direction) {},
                   confirmDismiss: (DismissDirection direction) async {
-                    return false;
+                    if (direction == DismissDirection.startToEnd) {
+                      showModalBottomSheet(
+                          backgroundColor:
+                              const Color.fromARGB(36, 130, 230, 255),
+                          barrierColor:
+                              const Color.fromARGB(143, 235, 235, 235),
+                          context: context,
+                          builder: (_) {
+                            return Container(
+                              height: 650,
+                              decoration: BoxDecoration(
+                                  color: AppColors.trnsprntGrey,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  )),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, right: 20),
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      ButtonWidget(
+                                          bgcolor: AppColors.mainColor,
+                                          text: "View",
+                                          textColor: AppColors.textholder),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      ButtonWidget(
+                                          bgcolor: AppColors.mainColor,
+                                          text: "View",
+                                          textColor: AppColors.textholder)
+                                    ]),
+                              ),
+                            );
+                          });
+                      return false;
+                    } else {
+                      return Future.delayed(const Duration(milliseconds: 500),
+                          () => direction == DismissDirection.endToStart);
+                    }
                   },
                   key: ObjectKey(index),
                   child: Container(

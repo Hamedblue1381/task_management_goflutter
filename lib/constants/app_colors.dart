@@ -7,6 +7,7 @@ class AppColors {
   static const textholder = Color(0xFFedf0f8);
   static const textGrey = Color(0xFFafb1b5);
   static final editGrey = const Color(0xFF2e3253).withOpacity(0.5);
+  static final trnsprntGrey = const Color(0xFF2e3253).withOpacity(0.4);
   static const deleteRed = Color.fromARGB(255, 255, 0, 0);
   static const textcolor = Colors.blueGrey;
 }
