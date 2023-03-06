@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_management_goflutter/screens/data_controller.dart';
 import 'package:task_management_goflutter/utils/screen_size.dart';
 import 'package:task_management_goflutter/widgets/button_view.dart';
 
@@ -9,8 +10,14 @@ import '../widgets/task_view.dart';
 class AllTask extends StatelessWidget {
   const AllTask({super.key});
 
+  _loadData() async {
+    await Get.find<DataController>().getData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(Get.find<DataController>().myData.length);
+    _loadData();
     ScreenSize.init(context);
 
     List myData = [
@@ -159,7 +166,7 @@ class AllTask extends StatelessWidget {
                       margin: const EdgeInsets.only(
                           left: 20, right: 20, bottom: 10),
                       child: TaskWidget(
-                        text: myData[index],
+                        text: myData[index]["task_name"],
                         color: AppColors.textGrey,
                       )),
                 );
