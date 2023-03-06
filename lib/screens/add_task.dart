@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_management_goflutter/screens/all_tasks.dart';
+import 'package:task_management_goflutter/screens/data_controller.dart';
 import 'package:task_management_goflutter/widgets/button_view.dart';
 import 'package:task_management_goflutter/widgets/textfield_view.dart';
 
 import '/constants/app_colors.dart';
 import '../utils/screen_size.dart';
+import '../widgets/error_warning_ms.dart';
 
 class AddTask extends StatelessWidget {
   const AddTask({super.key});
@@ -14,6 +17,21 @@ class AddTask extends StatelessWidget {
     ScreenSize.init(context);
     TextEditingController detailController = TextEditingController();
     TextEditingController nameController = TextEditingController();
+
+    bool _dataValidation() {
+      if (nameController.text.trim() == '') {
+        Message.taskErrOrWarning("Task name", "Your Task Name is empty");
+        return false;
+      } else if (detailController.text.trim() == '') {
+        Message.taskErrOrWarning("Task detail", "task detail is empty");
+        return false;
+      } else if (detailController.text.length <= 10) {
+        Message.taskErrOrWarning(
+            "Task Detail", "Task detail should be atleast 10 characters");
+        return false;
+      }
+      return true;
+    }
 
     return Scaffold(
       body: Container(
@@ -59,10 +77,25 @@ class AddTask extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const ButtonWidget(
-                    bgcolor: AppColors.mainColor,
-                    text: "Add",
-                    textColor: AppColors.textholder)
+                GestureDetector(
+                  onTap: () {
+                    if (_dataValidation()) {
+                      Get.find<DataController>().postData(
+                          nameController.text.trim(),
+                          detailController.text.trim());
+
+                      Get.to(
+                        // ignore: prefer_const_constructors
+                        () => AllTask(),
+                        transition: Transition.circularReveal,
+                      );
+                    }
+                  },
+                  child: const ButtonWidget(
+                      bgcolor: AppColors.mainColor,
+                      text: "Add",
+                      textColor: AppColors.textholder),
+                )
               ],
             ),
             SizedBox(
