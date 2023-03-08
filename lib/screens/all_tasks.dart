@@ -16,7 +16,6 @@ class AllTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(Get.find<DataController>().myData.length);
     _loadData();
     ScreenSize.init(context);
 
@@ -109,69 +108,72 @@ class AllTask extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Flexible(
-          child: ListView.builder(
-              itemCount: myData.length,
-              itemBuilder: (context, index) {
-                return Dismissible(
-                  background: leftEditIcon,
-                  secondaryBackground: rightDeleteIcon,
-                  onDismissed: (DismissDirection direction) {},
-                  confirmDismiss: (DismissDirection direction) async {
-                    if (direction == DismissDirection.startToEnd) {
-                      showModalBottomSheet(
-                          backgroundColor:
-                              const Color.fromARGB(36, 130, 230, 255),
-                          barrierColor:
-                              const Color.fromARGB(143, 235, 235, 235),
-                          context: context,
-                          builder: (_) {
-                            return Container(
-                              height: 650,
-                              decoration: BoxDecoration(
-                                  color: AppColors.trnsprntGrey,
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                  )),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      ButtonWidget(
-                                          bgcolor: AppColors.mainColor,
-                                          text: "View",
-                                          textColor: AppColors.textholder),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      ButtonWidget(
-                                          bgcolor: AppColors.mainColor,
-                                          text: "View",
-                                          textColor: AppColors.textholder)
-                                    ]),
-                              ),
-                            );
-                          });
-                      return false;
-                    } else {
-                      return Future.delayed(const Duration(milliseconds: 500),
-                          () => direction == DismissDirection.endToStart);
-                    }
-                  },
-                  key: ObjectKey(index),
-                  child: Container(
-                      margin: const EdgeInsets.only(
-                          left: 20, right: 20, bottom: 10),
-                      child: TaskWidget(
-                        text: myData[index]["task_name"],
-                        color: AppColors.textGrey,
-                      )),
-                );
-              }),
-        ),
+        Flexible(child: GetBuilder<DataController>(
+          builder: (controller) {
+            return ListView.builder(
+                itemCount: myData.length,
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                    background: leftEditIcon,
+                    secondaryBackground: rightDeleteIcon,
+                    onDismissed: (DismissDirection direction) {},
+                    confirmDismiss: (DismissDirection direction) async {
+                      if (direction == DismissDirection.startToEnd) {
+                        showModalBottomSheet(
+                            backgroundColor:
+                                const Color.fromARGB(36, 130, 230, 255),
+                            barrierColor:
+                                const Color.fromARGB(143, 235, 235, 235),
+                            context: context,
+                            builder: (_) {
+                              return Container(
+                                height: 650,
+                                decoration: BoxDecoration(
+                                    color: AppColors.trnsprntGrey,
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    )),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, right: 20),
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        ButtonWidget(
+                                            bgcolor: AppColors.mainColor,
+                                            text: "View",
+                                            textColor: AppColors.textholder),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        ButtonWidget(
+                                            bgcolor: AppColors.mainColor,
+                                            text: "View",
+                                            textColor: AppColors.textholder)
+                                      ]),
+                                ),
+                              );
+                            });
+                        return false;
+                      } else {
+                        return Future.delayed(const Duration(milliseconds: 500),
+                            () => direction == DismissDirection.endToStart);
+                      }
+                    },
+                    key: ObjectKey(index),
+                    child: Container(
+                        margin: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 10),
+                        child: TaskWidget(
+                          text: controller.myData[index]["task_name"],
+                          color: AppColors.textGrey,
+                        )),
+                  );
+                });
+          },
+        )),
       ]),
     );
   }
