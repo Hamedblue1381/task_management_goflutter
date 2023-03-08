@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:task_management_goflutter/constants/http_consts.dart';
 import 'package:task_management_goflutter/services/service.dart';
 
 class DataController extends GetxController {
@@ -9,28 +10,29 @@ class DataController extends GetxController {
   List<dynamic> get myData => _myData;
   Future<void> getData() async {
     _isLoading = true;
-    Response response = await service.getData();
+    Response response = await service.getData(HttpConstants.GET_TASKS);
     if (response.statusCode == 200) {
       _myData = response.body;
       print("we got the data ");
       update();
     } else {
-      print("No data");
+      print(response.statusCode.toString());
     }
   }
 
   Future<void> postData(String task, String taskDetail) async {
     _isLoading = true;
-    Response response = await service.postData({
+    Response response = await service.postData(HttpConstants.POST_TASK, {
       "task_name": task,
-      "taskDetail": taskDetail,
+      "task_detail": taskDetail,
     });
     if (response.statusCode == 200) {
       // _myData = response.body;
       print("data successfuly sent!");
+      print(myData);
       update();
     } else {
-      print("no data sent");
+      print(response.statusCode.toString());
     }
   }
 }
