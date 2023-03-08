@@ -1,16 +1,20 @@
 import 'package:get/get.dart';
+import 'package:task_management_goflutter/constants/http_consts.dart';
 
 class DataService extends GetConnect implements GetxService {
-  Future<Response> getData() async {
-    Response response = await get("http://localhost:8082/gettasks",
-        headers: {'Content-Type': 'application/json; charset=UTF'});
+  Future<Response> getData(String uri) async {
+    Response response = await get(HttpConstants.BASE_URL + uri, headers: {
+      'Content-Type': 'application/json charset=UTF-8',
+    });
 
     return response;
   }
 
-  Future<Response> postData(dynamic body) async {
-    Response response = await post("http://localhost:8082/create", body,
-        headers: {'Content-Type': 'application/json; charset=UTF'});
+  Future<Response> postData(String uri, dynamic body) async {
+    Response response =
+        await post(HttpConstants.BASE_URL + uri, body, headers: {
+      'Content-Type': 'application/json charset=UTF-8',
+    });
 
     return response;
   }
