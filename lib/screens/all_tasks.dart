@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_management_goflutter/screens/data_controller.dart';
+import 'package:task_management_goflutter/screens/view_task.dart';
 import 'package:task_management_goflutter/utils/screen_size.dart';
 import 'package:task_management_goflutter/widgets/button_view.dart';
 
 import '../../constants/app_colors.dart';
-import '../widgets/task_view.dart';
+import '../widgets/task_widget.dart';
 
 class AllTask extends StatelessWidget {
   const AllTask({super.key});
@@ -16,13 +17,10 @@ class AllTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut((() => DataController()));
     _loadData();
     ScreenSize.init(context);
 
-    List myData = [
-      "Try Harder",
-      "Try Smarter",
-    ];
     final leftEditIcon = Container(
       margin: const EdgeInsets.only(bottom: 10),
       color: AppColors.editGrey,
@@ -111,7 +109,7 @@ class AllTask extends StatelessWidget {
         Flexible(child: GetBuilder<DataController>(
           builder: (controller) {
             return ListView.builder(
-                itemCount: myData.length,
+                itemCount: controller.myData.length,
                 itemBuilder: (context, index) {
                   return Dismissible(
                     background: leftEditIcon,
@@ -140,17 +138,25 @@ class AllTask extends StatelessWidget {
                                   child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: const [
-                                        ButtonWidget(
-                                            bgcolor: AppColors.mainColor,
-                                            text: "View",
-                                            textColor: AppColors.textholder),
-                                        SizedBox(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            Get.off(() => ViewTask(
+                                                id: int.parse(controller
+                                                    .myData[index]["id"]
+                                                    .toString())));
+                                          },
+                                          child: const ButtonWidget(
+                                              bgcolor: AppColors.mainColor,
+                                              text: "View",
+                                              textColor: AppColors.textholder),
+                                        ),
+                                        const SizedBox(
                                           height: 10,
                                         ),
-                                        ButtonWidget(
+                                        const ButtonWidget(
                                             bgcolor: AppColors.mainColor,
-                                            text: "View",
+                                            text: "Edit",
                                             textColor: AppColors.textholder)
                                       ]),
                                 ),
