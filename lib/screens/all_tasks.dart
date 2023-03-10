@@ -7,6 +7,7 @@ import 'package:task_management_goflutter/widgets/button_view.dart';
 
 import '../../constants/app_colors.dart';
 import '../widgets/task_widget.dart';
+import 'edit_task.dart';
 
 class AllTask extends StatelessWidget {
   const AllTask({super.key});
@@ -154,10 +155,18 @@ class AllTask extends StatelessWidget {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        const ButtonWidget(
-                                            bgcolor: AppColors.mainColor,
-                                            text: "Edit",
-                                            textColor: AppColors.textholder)
+                                        GestureDetector(
+                                          onTap: () {
+                                            Get.off(() => EditTask(
+                                                id: int.parse(controller
+                                                    .myData[index]["id"]
+                                                    .toString())));
+                                          },
+                                          child: const ButtonWidget(
+                                              bgcolor: AppColors.mainColor,
+                                              text: "Edit",
+                                              textColor: AppColors.textholder),
+                                        )
                                       ]),
                                 ),
                               );
