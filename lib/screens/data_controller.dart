@@ -26,21 +26,21 @@ class DataController extends GetxController {
     }
   }
 
-  Future<void> getSingleTask(String id) async {
+  Future<void> getSingleTask(String taskID) async {
     _isLoading = true;
-    Response response = await service.getData(HttpConstants.GET_TASK + id);
+    Response response =
+        await service.getData('${HttpConstants.GET_TASK}' '?id=$taskID');
     if (response.statusCode == 200) {
-      // _myData = response.body;
       if (kDebugMode) {
         var task = response.body;
         // print("we got Single Task$task");
       }
       _singleTask = json.decode(response.body);
-      update();
     } else {
       print(response.statusCode.toString());
     }
     _isLoading = false;
+    update();
   }
 
   Future<void> postData(String task, String taskDetail) async {
@@ -50,29 +50,44 @@ class DataController extends GetxController {
       "task_detail": taskDetail,
     });
     if (response.statusCode == 200) {
-      //_myData = response.body;
       print("data successfuly sent!");
-      update();
     } else {
       print(response.statusCode.toString());
     }
-    _isLoading = false;
+    // _isLoading = false;
+    update();
   }
 
   Future<void> updateData(String task, String taskDetail, int taskID) async {
     _isLoading = true;
-    Response response = await service
-        .updateData(HttpConstants.UPDATE_TASK + taskID.toString(), {
+    Response response =
+        await service.updateData('${HttpConstants.UPDATE_TASK}' '?id=$taskID', {
       "task_name": task,
       "task_detail": taskDetail,
     });
     if (response.statusCode == 200) {
-      //_myData = response.body;
       print("data successfuly sent!");
-      update();
     } else {
       print(response.statusCode.toString());
     }
+    // _isLoading = false;
+    update();
+  }
+
+  Future<void> deleteData(int taskID) async {
+    _isLoading = true;
+    update();
+    Response response = await service.deleteData(
+      '${HttpConstants.DELETE_TASK}' '?id=$taskID',
+    );
+
+    if (response.statusCode == 200) {
+      print("Data DELETED");
+    } else {
+      print(response.statusCode.toString());
+    }
+
     _isLoading = false;
+    update();
   }
 }
