@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:task_management_goflutter/screens/add_task.dart';
-import 'package:task_management_goflutter/screens/all_tasks.dart';
+import 'package:task_management_goflutter/routes/routes.dart';
 import 'package:task_management_goflutter/widgets/button_view.dart';
 
 import '../../constants/app_colors.dart';
@@ -58,9 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => const AddTask(),
-                    transition: Transition.circularReveal,
-                    duration: const Duration(milliseconds: 500));
+                Get.toNamed(RoutesClass.addTask);
               },
               child: const ButtonWidget(
                   bgcolor: AppColors.mainColor,
@@ -72,9 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => const AllTask(),
-                    transition: Transition.fade,
-                    duration: const Duration(seconds: 1));
+                Get.toNamed(RoutesClass.allTask);
               },
               child: const ButtonWidget(
                   bgcolor: AppColors.textholder,

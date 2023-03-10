@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:get/get.dart';
+import 'package:task_management_goflutter/routes/routes.dart';
 import 'package:task_management_goflutter/screens/data_controller.dart';
-import 'package:task_management_goflutter/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      initialRoute: RoutesClass.getHomeRoute(),
+      getPages: RoutesClass.routes,
     );
   }
 }

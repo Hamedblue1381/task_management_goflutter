@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:task_management_goflutter/screens/all_tasks.dart';
+import 'package:task_management_goflutter/routes/routes.dart';
 import 'package:task_management_goflutter/screens/data_controller.dart';
 import 'package:task_management_goflutter/widgets/button_view.dart';
 import 'package:task_management_goflutter/widgets/textfield_view.dart';
@@ -52,6 +52,8 @@ class AddTask extends StatelessWidget {
                   height: 60,
                 ),
                 IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
                     onPressed: (() {
                       Get.back();
                     }),
@@ -84,11 +86,7 @@ class AddTask extends StatelessWidget {
                           nameController.text.trim(),
                           detailController.text.trim());
 
-                      Get.to(
-                        // ignore: prefer_const_constructors
-                        () => AllTask(),
-                        transition: Transition.circularReveal,
-                      );
+                      Get.offNamed(RoutesClass.getAllTaskRoute());
                     }
                   },
                   child: const ButtonWidget(

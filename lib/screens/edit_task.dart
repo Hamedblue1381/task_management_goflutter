@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:task_management_goflutter/screens/all_tasks.dart';
+import 'package:task_management_goflutter/routes/routes.dart';
 import 'package:task_management_goflutter/screens/data_controller.dart';
 import 'package:task_management_goflutter/widgets/button_view.dart';
 import 'package:task_management_goflutter/widgets/textfield_view.dart';
@@ -101,11 +101,7 @@ class EditTask extends StatelessWidget {
                             detailController.text.trim(),
                             int.parse(controller.singleTask["id"]));
 
-                        Get.to(
-                          // ignore: prefer_const_constructors
-                          () => AllTask(),
-                          transition: Transition.circularReveal,
-                        );
+                        Get.offNamed(RoutesClass.getHomeRoute());
                       }
                     },
                     child: const ButtonWidget(
