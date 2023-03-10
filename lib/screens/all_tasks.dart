@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_management_goflutter/routes/routes.dart';
 import 'package:task_management_goflutter/screens/data_controller.dart';
-import 'package:task_management_goflutter/screens/view_task.dart';
 import 'package:task_management_goflutter/utils/screen_size.dart';
 import 'package:task_management_goflutter/widgets/button_view.dart';
 
 import '../../constants/app_colors.dart';
 import '../widgets/task_widget.dart';
-import 'edit_task.dart';
 
 class AllTask extends StatelessWidget {
   const AllTask({super.key});
@@ -20,6 +19,7 @@ class AllTask extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.lazyPut((() => DataController()));
     _loadData();
+
     ScreenSize.init(context);
 
     final leftEditIcon = Container(
@@ -70,9 +70,14 @@ class AllTask extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(
-                Icons.home,
-                color: AppColors.secondaryColor,
+              IconButton(
+                onPressed: (() {
+                  Get.toNamed(RoutesClass.getHomeRoute());
+                }),
+                icon: const Icon(
+                  Icons.home,
+                  color: AppColors.secondaryColor,
+                ),
               ),
               const SizedBox(
                 width: 8,
@@ -83,15 +88,20 @@ class AllTask extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.5),
                     color: AppColors.smallTextColor),
-                child: const Icon(
-                  Icons.add,
-                  color: AppColors.textholder,
-                  size: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RoutesClass.getAddTaskRoute());
+                  },
+                  child: const Icon(
+                    Icons.add,
+                    color: AppColors.textholder,
+                    size: 20,
+                  ),
                 ),
               ),
               Expanded(child: Container()),
               const Icon(
-                Icons.calendar_month_sharp,
+                Icons.task,
                 color: AppColors.secondaryColor,
               ),
               const SizedBox(
@@ -142,10 +152,15 @@ class AllTask extends StatelessWidget {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            Get.off(() => ViewTask(
-                                                id: int.parse(controller
-                                                    .myData[index]["id"]
-                                                    .toString())));
+                                            // Get.off(() => ViewTask(
+                                            //     id: int.parse(controller
+                                            //         .myData[index]["id"]
+                                            //         .toString())));
+                                            Get.toNamed(
+                                                RoutesClass.getViewTaskRoute(
+                                                    controller.myData[index]
+                                                            ["id"]
+                                                        .toString()));
                                           },
                                           child: const ButtonWidget(
                                               bgcolor: AppColors.mainColor,
@@ -157,10 +172,15 @@ class AllTask extends StatelessWidget {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            Get.off(() => EditTask(
-                                                id: int.parse(controller
-                                                    .myData[index]["id"]
-                                                    .toString())));
+                                            // Get.off(() => EditTask(
+                                            //     id: int.parse(controller
+                                            //         .myData[index]["id"]
+                                            //         .toString())));
+                                            Get.toNamed(
+                                                RoutesClass.getEditTaskRoute(
+                                                    controller.myData[index]
+                                                            ["id"]
+                                                        .toString()));
                                           },
                                           child: const ButtonWidget(
                                               bgcolor: AppColors.mainColor,
@@ -173,6 +193,8 @@ class AllTask extends StatelessWidget {
                             });
                         return false;
                       } else {
+                        controller.deleteData(
+                            int.parse(controller.myData[index]["id"]));
                         return Future.delayed(const Duration(milliseconds: 500),
                             () => direction == DismissDirection.endToStart);
                       }
