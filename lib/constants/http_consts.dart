@@ -4,4 +4,5 @@ class HttpConstants {
   static const String POST_TASK = "/create";
   static const String GET_TASK = "/gettask/";
   static const String UPDATE_TASK = "/update/";
+  static const String DELETE_TASK = "/delete/";
 }

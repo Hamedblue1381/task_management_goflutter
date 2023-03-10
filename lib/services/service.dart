@@ -30,4 +30,15 @@ class DataService extends GetConnect implements GetxService {
 
     return response;
   }
+
+  Future<Response> deleteData(String uri) async {
+    // if (kDebugMode) {
+    //   print(HttpConstants.BASE_URL + uri);
+    // }
+    Response response = await delete(HttpConstants.BASE_URL + uri, headers: {
+      'Content-Type': 'application/json charset=UTF-8',
+    });
+
+    return response;
+  }
 }
