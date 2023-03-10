@@ -33,14 +33,21 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             RichText(
                 text: const TextSpan(
-                    text: "Hello",
+                    text: "  Task Management",
                     style: TextStyle(
                         color: AppColors.mainColor,
-                        fontSize: 60,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 10,
+                            color: Color.fromARGB(234, 224, 224, 224),
+                            offset: Offset(5, 4),
+                          )
+                        ]),
                     children: [
                   TextSpan(
-                      text: "\nI'm Hamed",
+                      text: "\nBy Hamed",
                       style: TextStyle(
                         color: AppColors.smallTextColor,
                         fontSize: 16,

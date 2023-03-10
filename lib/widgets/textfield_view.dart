@@ -8,6 +8,7 @@ class TextFieldWidget extends StatelessWidget {
   final bool readOnly;
   final Color colorText;
   final Color colorBorder;
+  final Color colorFont;
   const TextFieldWidget(
       {super.key,
       required this.textController,
@@ -16,7 +17,8 @@ class TextFieldWidget extends StatelessWidget {
       this.maxLines = 1,
       this.readOnly = false,
       this.colorBorder = Colors.white,
-      this.colorText = Colors.white});
+      this.colorText = Colors.white,
+      this.colorFont = Colors.black});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class TextFieldWidget extends StatelessWidget {
           filled: true,
           fillColor: colorText,
           hintText: hintText,
+          hintStyle: TextStyle(color: colorFont),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(borderRadius!),
               borderSide: BorderSide(color: colorBorder, width: 1)),
