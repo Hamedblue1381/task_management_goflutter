@@ -22,4 +22,12 @@ class DataService extends GetConnect implements GetxService {
 
     return response;
   }
+
+  Future<Response> updateData(String uri, dynamic body) async {
+    Response response = await put(HttpConstants.BASE_URL + uri, body, headers: {
+      'Content-Type': 'application/json charset=UTF-8',
+    });
+
+    return response;
+  }
 }

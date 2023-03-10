@@ -32,9 +32,10 @@ class DataController extends GetxController {
     if (response.statusCode == 200) {
       // _myData = response.body;
       if (kDebugMode) {
-        print("we got Single Task${jsonEncode(response.body)}");
+        var task = response.body;
+        // print("we got Single Task$task");
       }
-      _singleTask = response.body;
+      _singleTask = json.decode(response.body);
       update();
     } else {
       print(response.statusCode.toString());
@@ -45,6 +46,23 @@ class DataController extends GetxController {
   Future<void> postData(String task, String taskDetail) async {
     _isLoading = true;
     Response response = await service.postData(HttpConstants.POST_TASK, {
+      "task_name": task,
+      "task_detail": taskDetail,
+    });
+    if (response.statusCode == 200) {
+      //_myData = response.body;
+      print("data successfuly sent!");
+      update();
+    } else {
+      print(response.statusCode.toString());
+    }
+    _isLoading = false;
+  }
+
+  Future<void> updateData(String task, String taskDetail, int taskID) async {
+    _isLoading = true;
+    Response response = await service
+        .updateData(HttpConstants.UPDATE_TASK + taskID.toString(), {
       "task_name": task,
       "task_detail": taskDetail,
     });
